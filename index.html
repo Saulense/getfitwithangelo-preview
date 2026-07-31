@@ -68,21 +68,21 @@
   .mark span{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.3em;color:var(--paper);margin-right:-.3em}
   .btn{
     display:inline-flex;align-items:center;gap:12px;
-    background:var(--gold);color:#171106;
+    background:var(--gold-hi);color:#120D03;
     font-weight:700;font-size:14px;letter-spacing:.04em;
     padding:16px 30px;border-radius:10px;border:0;cursor:pointer;
     transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
     box-shadow:0 8px 30px rgba(217,169,104,.25);
   }
-  .btn:hover{transform:translateY(-2px);background:var(--gold-hi)}
+  .btn:hover{transform:translateY(-2px);background:#F4D096}
   .btn svg{width:15px;height:15px}
   .btn.small{padding:12px 22px;font-size:13px;box-shadow:none}
   .btn.ghost{background:transparent;color:var(--bone);border:1px solid rgba(241,235,223,.28);box-shadow:none}
   .btn.ghost:hover{border-color:var(--gold);color:var(--gold-hi);background:transparent}
   .btn.cta2{padding:13px 26px;text-align:center;gap:18px}
   .btn.cta2 .c2t{display:flex;flex-direction:column;gap:3px;align-items:center}
-  .btn.cta2 .c2t b{font-family:'Anton',sans-serif;font-weight:400;font-size:16.5px;letter-spacing:.055em;text-transform:uppercase;line-height:1.08}
-  .btn.cta2 .c2t small{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(23,17,6,.6)}
+  .btn.cta2 .c2t b{font-family:'Anton',sans-serif;font-weight:400;font-size:17px;letter-spacing:.055em;text-transform:uppercase;line-height:1.08;color:#0F0A02}
+  .btn.cta2 .c2t small{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(15,10,2,.78)}
 
   /* ---------- hero (centered cutout, text behind subject) ---------- */
   .hero{position:relative;isolation:isolate;overflow:hidden;background:
@@ -153,7 +153,7 @@
   .sec-head p{color:var(--mut);margin-top:18px;max-width:540px}
   .car-wrap{position:relative;z-index:1}
   .car{
-    display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x proximity;
+    display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;
     scrollbar-width:none;-ms-overflow-style:none;padding:6px 4px 10px;cursor:grab;
   }
   .car::-webkit-scrollbar{display:none}
@@ -399,8 +399,15 @@
     .qgrid{grid-template-columns:1fr}
     .qcard{flex-direction:column}
   }
+  .phone-labels{display:none}
   @media (max-width:900px){
     .app .chip{display:none}
+    .phone-labels{
+      display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
+      width:100%;flex:0 0 100%;margin-top:22px;text-align:center;
+    }
+    .phone-labels span{font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);line-height:1.5}
+    .phone-labels b{display:block;font-family:'Anton',sans-serif;font-weight:400;font-size:16px;letter-spacing:.04em;color:var(--gold-hi);margin-bottom:4px}
   }
   @media (max-width:760px){
     body{font-size:16px}
@@ -418,8 +425,8 @@
     .hero .chip b{font-size:14px}
     .hero .chip span{font-size:9px}
     .chip.h2c,.chip.h3c{display:none}
-    .chip.h1c{left:5%;top:32%}
-    .chip.h4c{right:5%;top:32%}
+    .chip.h1c{left:5%;top:37%}
+    .chip.h4c{right:5%;top:37%}
     .hero-cta{bottom:24px;padding:0 18px}
     .hero-cta .btn.ghost{display:none}
     .hero-cta .btn{width:100%;justify-content:center}
@@ -494,6 +501,11 @@
     .qcard{padding:24px 22px;gap:12px}
     .quotes .fine,.results .fine{margin-top:20px}
     .modal .box{padding:40px 24px}
+    .disp{line-height:1.08}
+    .hero-h1 .disp{line-height:1.02}
+    .fit .quote p{line-height:1.28}
+    .btn.cta2 .c2t b{font-size:clamp(13.5px,4.1vw,16px);white-space:nowrap}
+    .btn.cta2 .c2t small{font-size:8.5px;letter-spacing:.16em}
   }
 
   .gate{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;padding:24px;
@@ -706,6 +718,11 @@
       <div class="chip c1"><b>Weekly</b><span>Plan adjustments</span></div>
       <div class="chip c2"><b>≈1,000</b><span>Meals & recipes</span></div>
       <div class="chip c3"><b>24/7</b><span>Progress tracking</span></div>
+    </div>
+    <div class="phone-labels rv">
+      <span><b>Weekly</b>Plan adjustments</span>
+      <span><b>24/7</b>Progress tracking</span>
+      <span><b>≈1,000</b>Meals & recipes</span>
     </div>
     <p class="fine rv">App included for the full six months of coaching.</p>
   </div>
