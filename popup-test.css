@@ -155,9 +155,18 @@
   color:#F1EBDF !important;font-size:15px !important;cursor:pointer !important;margin:0 !important;text-align:left !important;
 }
 
-/* --- the completed / thank-you slide -----------------------------------
-   GHL renders its completion message as a white pill; on our dark popup that
-   became white-on-white. Make it a readable dark card whatever its class. */
+/* --- the completed / disqualified message slide ------------------------
+   GHL renders it as .thank-you-message with an INLINE white background on a
+   child div (verified live), while our popup text rule turns its text cream:
+   cream on white = invisible. Strip every child's background, then style the
+   wrapper as a proper dark gold card. */
+#overlay .thank-you-message *{
+  background:transparent !important;background-color:transparent !important;
+  background-image:none !important;box-shadow:none !important;border:0 !important;
+  color:#F1EBDF !important;font-family:'Inter',sans-serif !important;
+  font-size:17px !important;line-height:1.55 !important;font-weight:500 !important;
+  text-transform:none !important;letter-spacing:0 !important;
+}
 #overlay [class*="thank"], #overlay [class*="Thank"],
 #overlay .form-builder--message, #overlay .survey-message,
 #overlay .ghl-question-set h1 + p{
