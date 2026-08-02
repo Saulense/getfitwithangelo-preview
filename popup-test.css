@@ -80,6 +80,10 @@
 #overlay [id^="row-"], #overlay [id^="col-"], #overlay .c-row, #overlay .c-column{
   padding:0 !important;margin:0 !important;
 }
+/* each slide's field row carries another 30px top+bottom */
+#overlay .fields-container{padding-top:4px !important;padding-bottom:4px !important}
+/* GHL's blue progress bar is off-brand and the footer already says "2 of 6" */
+#overlay [class*="survey-progress-bar"]{display:none !important}
 /* stray list bullets and required-asterisk dots */
 #overlay ul, #overlay ol{list-style:none !important;padding:0 !important;margin:0 !important}
 #overlay li{list-style:none !important}
