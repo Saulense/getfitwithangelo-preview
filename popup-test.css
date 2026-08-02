@@ -62,7 +62,10 @@
   margin:0 auto !important;margin-bottom:0 !important;
   max-width:560px !important;width:100% !important;float:none !important;
 }
-#overlay .hl_form-builder--main{display:flex !important;justify-content:center !important;width:100% !important}
+/* display:block, NOT flex - as a flex item the form-wrap stretches to the
+   container's stale height instead of growing it, which cut the footer off
+   inside the popup. margin:0 auto on the wrap does the centering. */
+#overlay .hl_form-builder--main{display:block !important;width:100% !important}
 
 /* --- kill GHL's survey chrome spacing ----------------------------------
    Measured on the live popup: .hl_form-builder--main carries padding
@@ -117,9 +120,26 @@
   display:flex !important;align-items:center !important;gap:12px !important;width:100% !important;
 }
 #overlay input[type=radio], #overlay input[type=checkbox]{
-  accent-color:#D9A968 !important;width:19px !important;height:19px !important;
-  flex:0 0 auto !important;margin:0 !important;cursor:pointer !important;
+  appearance:none !important;-webkit-appearance:none !important;
+  width:20px !important;height:20px !important;
+  border:2px solid rgba(217,169,104,.55) !important;background:transparent !important;
+  display:inline-grid !important;place-content:center !important;
+  flex:0 0 auto !important;margin:0 !important;padding:0 !important;cursor:pointer !important;
+  transition:border-color .15s ease !important;
 }
+#overlay input[type=radio]{border-radius:50% !important}
+#overlay input[type=checkbox]{border-radius:6px !important}
+#overlay input[type=radio]::before{
+  content:"" !important;width:10px !important;height:10px !important;border-radius:50% !important;
+  background:#E9BE7F !important;transform:scale(0);transition:transform .15s ease;
+}
+#overlay input[type=checkbox]::before{
+  content:"" !important;width:11px !important;height:11px !important;
+  background:#E9BE7F !important;transform:scale(0);transition:transform .15s ease;
+  clip-path:polygon(14% 44%,0 65%,40% 100%,100% 16%,80% 0%,38% 62%);
+}
+#overlay input[type=radio]:checked, #overlay input[type=checkbox]:checked{border-color:#E9BE7F !important}
+#overlay input[type=radio]:checked::before, #overlay input[type=checkbox]:checked::before{transform:scale(1)}
 #overlay .option-radio label, #overlay .standard-checkbox-container label{
   color:#F1EBDF !important;font-size:15px !important;cursor:pointer !important;margin:0 !important;text-align:left !important;
 }
