@@ -1,0 +1,275 @@
+/* ============================================================
+   GHL POPUP + SURVEY THEMING
+   Selectors verified against the live published popup. The survey renders in
+   the page DOM (not an iframe), so this works. Everything is scoped to
+   #overlay so it can only affect the popup.
+
+   Real structure of the footer (read off the live page):
+     .ghl-footer                inline background-color:#007CE2  <- the blue bar
+       .ghl-footer-buttons      inline justify-content:space-between
+         .ghl-btn.ghl-footer-back   "PREV"
+         .ghl-btn.ghl-footer-next   "NEXT" + <svg class="ghl-footer-next-arrow">
+   NOTE: never use a broad [class*="footer"] selector here - it also matches
+   .ghl-footer-back and stretches PREV to full width, which pushes NEXT off
+   the screen. Use the exact class names below.
+   ============================================================ */
+
+#overlay.show{background:rgba(11,10,8,.92) !important;backdrop-filter:blur(10px)}
+
+/* --- the popup shell --------------------------------------------------- */
+#overlay .hl_main_popup, #overlay .popup-body, .hl_main_popup, .popup-body{
+  background:linear-gradient(180deg,#191512 0%,#131110 100%) !important;
+  border:1px solid rgba(217,169,104,.32) !important;
+  border-radius:22px !important;
+  box-shadow:0 60px 160px rgba(0,0,0,.75) !important;
+  height:auto !important;max-height:90vh !important;
+  overflow:visible !important;padding:0 !important;
+}
+#overlay .drop-zone-draggable{
+  max-height:86vh !important;overflow-y:auto !important;
+  padding:44px 26px 24px !important;border-radius:22px !important;
+}
+#overlay .drop-zone-draggable::-webkit-scrollbar{width:8px}
+#overlay .drop-zone-draggable::-webkit-scrollbar-thumb{background:rgba(217,169,104,.35);border-radius:99px}
+#overlay .drop-zone-draggable::-webkit-scrollbar-track{background:transparent}
+
+/* --- close button: GHL's icon is already a circled X, so only recolour it -- */
+#overlay .closeLPModal{
+  position:absolute !important;top:14px !important;right:14px !important;
+  left:auto !important;bottom:auto !important;margin:0 !important;transform:none !important;
+  width:auto !important;height:auto !important;padding:0 !important;line-height:1 !important;
+  background:transparent !important;background-image:none !important;
+  border:0 !important;border-radius:0 !important;box-shadow:none !important;
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  color:#E9BE7F !important;font-size:30px !important;z-index:30 !important;opacity:.9;cursor:pointer;
+  transition:opacity .2s ease,color .2s ease;
+}
+#overlay .closeLPModal:hover{opacity:1;color:#FAF7F1 !important}
+#overlay .closeLPModal *{color:inherit !important;fill:currentColor !important;
+  line-height:1 !important;margin:0 !important;padding:0 !important;font-size:inherit !important}
+
+/* --- flatten nested wrappers into one dark surface --------------------- */
+#overlay .c-survey, #overlay .ghl-form-wrap, #overlay .hl_form-builder--main,
+#overlay .ghl-body, #overlay .hl-app, #overlay .ghl-survey-form,
+#overlay .ghl-question-set, #overlay .ghl-question, #overlay .form-builder--wrap-questions,
+#overlay .fields-container, #overlay .form-field-wrapper, #overlay .form-field-container,
+#overlay .form-builder--item, #overlay .c-row, #overlay .c-column, #overlay .inner,
+#overlay section, #overlay .d-flex, #overlay .flex-col{
+  background:transparent !important;background-color:transparent !important;
+  border:0 !important;box-shadow:none !important;
+}
+#overlay .ghl-form-wrap{
+  margin:0 auto !important;margin-bottom:0 !important;
+  max-width:560px !important;width:100% !important;float:none !important;
+}
+/* display:block, NOT flex - as a flex item the form-wrap stretches to the
+   container's stale height instead of growing it, which cut the footer off
+   inside the popup. margin:0 auto on the wrap does the centering. */
+#overlay .hl_form-builder--main{display:block !important;width:100% !important}
+
+/* --- kill GHL's survey chrome spacing ----------------------------------
+   Measured on the live popup: .hl_form-builder--main carries padding
+   40px/20px and .ghl-survey-form another 40px per side, plus the popup's
+   row (15px) and column (10px) paddings. Stacked, they left 216px for the
+   questions on a 390px phone - every answer wrapped to two lines and the
+   step needed scrolling. The drop-zone padding is the ONLY spacing layer;
+   everything inside it goes to zero. The row/col rule matches by id prefix
+   because GHL rows in popups don't get a .c-row class. */
+#overlay .hl_form-builder--main{padding:10px 0 14px !important}
+#overlay .ghl-survey-form{padding:8px 0 0 !important;margin:0 !important;width:100% !important}
+#overlay [id^="row-"], #overlay [id^="col-"], #overlay .c-row, #overlay .c-column{
+  padding:0 !important;margin:0 !important;
+}
+/* each slide's field row carries another 30px top+bottom */
+#overlay .fields-container{padding-top:4px !important;padding-bottom:4px !important}
+/* GHL's blue progress bar is off-brand and the footer already says "2 of 6" */
+#overlay [class*="survey-progress-bar"]{display:none !important}
+/* stray list bullets and required-asterisk dots */
+#overlay ul, #overlay ol{list-style:none !important;padding:0 !important;margin:0 !important}
+#overlay li{list-style:none !important}
+#overlay .ghl-survey-form{font-family:'Inter',sans-serif !important}
+
+/* --- typography -------------------------------------------------------- */
+#overlay h1, #overlay h2, #overlay h3, #overlay .c-survey p, #overlay .ghl-question p{
+  color:#FAF7F1 !important;font-family:'Anton',sans-serif !important;
+  text-transform:uppercase !important;letter-spacing:.02em !important;line-height:1.16 !important;
+}
+#overlay .c-survey p, #overlay .ghl-question p{font-size:23px !important;margin:0 0 8px !important}
+#overlay .heading, #overlay .text-output{text-align:center !important}
+#overlay .heading h1, #overlay .heading h2, #overlay .heading h3, #overlay .text-output{
+  font-size:26px !important;line-height:1.2 !important;margin:0 auto 6px !important;max-width:22em;
+}
+#overlay [style*="color"]{color:#FAF7F1 !important}
+#overlay .field-label, #overlay label{
+  color:rgba(241,235,223,.72) !important;font-family:'Inter',sans-serif !important;
+  text-transform:none !important;letter-spacing:0 !important;font-size:14px !important;font-weight:400 !important;
+}
+
+/* --- answer options (radio AND checkbox) -------------------------------
+   GHL nests .standard-radio-container inside .option-radio, so style the
+   outer one only or you get a bubble inside a bubble. */
+#overlay .option-radio, #overlay .standard-checkbox-container{
+  background:rgba(233,190,127,.05) !important;
+  border:1px solid rgba(241,235,223,.16) !important;
+  border-radius:14px !important;padding:15px 18px !important;margin:0 0 12px !important;
+  transition:border-color .2s ease, background .2s ease !important;cursor:pointer !important;
+  display:flex !important;align-items:center !important;gap:12px !important;
+}
+#overlay .option-radio:hover, #overlay .standard-checkbox-container:hover{
+  border-color:rgba(217,169,104,.65) !important;background:rgba(233,190,127,.11) !important;
+}
+#overlay .option-radio .standard-radio-container, #overlay .standard-radio-container{
+  background:transparent !important;border:0 !important;border-radius:0 !important;
+  padding:0 !important;margin:0 !important;box-shadow:none !important;
+  display:flex !important;align-items:center !important;gap:12px !important;width:100% !important;
+}
+#overlay input[type=radio], #overlay input[type=checkbox]{
+  appearance:none !important;-webkit-appearance:none !important;
+  width:20px !important;height:20px !important;
+  border:2px solid rgba(217,169,104,.55) !important;background:transparent !important;
+  display:inline-grid !important;place-content:center !important;
+  flex:0 0 auto !important;margin:0 !important;padding:0 !important;cursor:pointer !important;
+  transition:border-color .15s ease !important;
+}
+#overlay input[type=radio]{border-radius:50% !important}
+#overlay input[type=checkbox]{border-radius:6px !important}
+/* checked marks are painted as BACKGROUNDS, not ::before - iPhone Safari does
+   not reliably render pseudo-elements on <input>, which made taps select
+   without showing anything. Backgrounds render everywhere. */
+#overlay input[type=radio]:checked{
+  border-color:#E9BE7F !important;
+  background:radial-gradient(circle, #E9BE7F 0 4.5px, transparent 5.5px) !important;
+}
+#overlay input[type=checkbox]:checked{
+  border-color:#E9BE7F !important;
+  background:#E9BE7F url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 12.5 9.5 18 20 6.5' fill='none' stroke='%23171106' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/72% no-repeat !important;
+}
+/* the whole answer card lights up too - visible feedback even if the tiny
+   circle is missed (supported iOS 15.4+/all modern; older ones still get the
+   input mark above) */
+#overlay .option-radio:has(input:checked),
+#overlay .standard-checkbox-container:has(input:checked){
+  border-color:#E9BE7F !important;background:rgba(233,190,127,.16) !important;
+}
+#overlay .option-radio label, #overlay .standard-checkbox-container label{
+  color:#F1EBDF !important;font-size:15px !important;cursor:pointer !important;margin:0 !important;text-align:left !important;
+}
+
+/* --- the completed / thank-you slide -----------------------------------
+   GHL renders its completion message as a white pill; on our dark popup that
+   became white-on-white. Make it a readable dark card whatever its class. */
+#overlay [class*="thank"], #overlay [class*="Thank"],
+#overlay .form-builder--message, #overlay .survey-message,
+#overlay .ghl-question-set h1 + p{
+  background:rgba(233,190,127,.08) !important;background-image:none !important;
+  border:1px solid rgba(217,169,104,.35) !important;border-radius:14px !important;
+  color:#F1EBDF !important;font-family:'Inter',sans-serif !important;
+  font-size:16px !important;line-height:1.5 !important;text-transform:none !important;
+  letter-spacing:0 !important;padding:18px 20px !important;text-align:center !important;
+}
+
+/* --- text fields (lifted off pure black so they read as inputs) -------- */
+#overlay .form-control, #overlay .text-area-element, #overlay input[type=text],
+#overlay input[type=email], #overlay input[type=tel], #overlay textarea, #overlay select{
+  background:rgba(255,255,255,.055) !important;
+  border:1px solid rgba(241,235,223,.22) !important;
+  border-radius:12px !important;color:#FAF7F1 !important;padding:15px 16px !important;
+  font-family:'Inter',sans-serif !important;font-size:15px !important;width:100% !important;
+}
+#overlay .form-control:focus, #overlay textarea:focus, #overlay input:focus{
+  background:rgba(255,255,255,.08) !important;border-color:#D9A968 !important;
+  box-shadow:0 0 0 3px rgba(217,169,104,.15) !important;outline:none !important;
+}
+#overlay ::placeholder{color:#8A8172 !important}
+
+/* --- FOOTER: kill the blue bar, centre the buttons --------------------- */
+#overlay .ghl-footer{
+  background:transparent !important;background-color:transparent !important;
+  background-image:none !important;box-shadow:none !important;border:0 !important;
+  height:auto !important;padding:6px 0 0 !important;position:static !important;
+}
+#overlay .ghl-footer-buttons{
+  background:transparent !important;box-shadow:none !important;border:0 !important;
+  display:flex !important;align-items:center !important;
+  justify-content:center !important;      /* overrides GHL's inline space-between */
+  gap:14px !important;height:auto !important;position:static !important;
+  width:100% !important;max-width:560px !important;margin:0 auto !important;
+}
+
+/* PREV: outlined gold twin of NEXT - the two split the row 50/50 */
+#overlay .ghl-footer-back{
+  background:transparent !important;background-color:transparent !important;
+  color:#E9BE7F !important;border:1px solid rgba(217,169,104,.45) !important;
+  border-radius:12px !important;box-shadow:none !important;
+  flex:1 1 0 !important;width:auto !important;min-width:0 !important;max-width:none !important;
+  font-family:'Anton',sans-serif !important;font-weight:400 !important;font-size:17px !important;
+  letter-spacing:.06em !important;text-transform:uppercase !important;
+  padding:15px 20px !important;opacity:1 !important;height:auto !important;line-height:1 !important;cursor:pointer !important;
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:10px !important;
+  transition:border-color .2s ease,color .2s ease !important;
+}
+#overlay .ghl-footer-back:hover{border-color:#E9BE7F !important;color:#FAF7F1 !important}
+#overlay .ghl-footer-back *{color:inherit !important;stroke:currentColor !important;fill:currentColor !important}
+#overlay .ghl-footer-back svg{width:15px !important;height:15px !important;flex:0 0 15px !important}
+
+/* NEXT / submit */
+#overlay .ghl-footer-next, #overlay .ghl-footer-submit{
+  background:#E9BE7F !important;background-image:none !important;
+  color:#0F0A02 !important;border:0 !important;border-radius:12px !important;
+  font-family:'Anton',sans-serif !important;font-weight:400 !important;
+  text-transform:uppercase !important;letter-spacing:.06em !important;font-size:17px !important;
+  padding:15px 20px !important;min-width:0 !important;width:auto !important;flex:1 1 0 !important;
+  height:auto !important;line-height:1 !important;cursor:pointer !important;
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:10px !important;
+  box-shadow:0 10px 30px rgba(217,169,104,.22) !important;
+  transition:background .2s ease, transform .2s ease !important;
+}
+#overlay .ghl-footer-next:hover, #overlay .ghl-footer-submit:hover{
+  background:#F4D096 !important;transform:translateY(-1px);
+}
+#overlay .ghl-footer-next > span, #overlay .ghl-footer-submit > span{
+  flex:0 0 auto !important;width:auto !important;margin:0 !important;padding:0 !important;
+  position:static !important;line-height:1 !important;color:#0F0A02 !important;
+}
+/* the arrow SVG renders ~86px wide unless pinned, which shoves the label left */
+#overlay .ghl-footer-next-arrow, #overlay .ghl-footer-next svg, #overlay .ghl-footer-submit svg{
+  width:17px !important;height:17px !important;min-width:17px !important;max-width:17px !important;
+  flex:0 0 17px !important;margin:0 !important;vertical-align:middle !important;
+  stroke:#0F0A02 !important;color:#0F0A02 !important;
+}
+#overlay .ghl-footer-next svg path{stroke:#0F0A02 !important}
+#overlay .ghl-btn-placeholder{display:none !important}
+
+/* --- phones ------------------------------------------------------------- */
+@media (max-width:760px){
+  #overlay{overflow-y:auto !important;-webkit-overflow-scrolling:touch}
+  #overlay .hl_main_popup, #overlay .popup-body{
+    width:calc(100vw - 24px) !important;max-width:calc(100vw - 24px) !important;min-width:0 !important;
+    left:12px !important;right:12px !important;margin:12px auto !important;transform:none !important;
+    max-height:92vh !important;
+  }
+  #overlay .drop-zone-draggable{padding:42px 12px 14px !important;max-height:none !important}
+  #overlay .c-row, #overlay .c-column, #overlay .inner, #overlay .c-wrapper,
+  #overlay .fields-container, #overlay .form-field-wrapper, #overlay .col-12,
+  #overlay .c-survey, #overlay .ghl-form-wrap, #overlay .ghl-question-set,
+  #overlay .ghl-survey-form, #overlay .hl_form-builder--main{
+    width:100% !important;max-width:100% !important;min-width:0 !important;
+    margin-left:0 !important;margin-right:0 !important;
+    padding-left:0 !important;padding-right:0 !important;flex:0 0 100% !important;
+  }
+  #overlay .hl_form-builder--main{padding-top:6px !important;padding-bottom:8px !important}
+  #overlay .ghl-survey-form{padding-top:6px !important}
+  #overlay .ghl-footer{padding:2px 0 0 !important}
+  #overlay .ghl-footer-buttons{gap:10px !important}
+  #overlay .ghl-footer-back{padding:15px 10px !important;font-size:15px !important}
+  #overlay .ghl-footer-next, #overlay .ghl-footer-submit{padding:15px 10px !important}
+  #overlay .option-radio, #overlay .standard-checkbox-container{padding:13px 14px !important;margin:0 0 10px !important}
+  #overlay .option-radio label, #overlay .standard-checkbox-container label{font-size:14.5px !important}
+  #overlay .c-survey p, #overlay .ghl-question p{font-size:18px !important}
+  #overlay .heading h1, #overlay .heading h2, #overlay .heading h3, #overlay .text-output{font-size:20px !important}
+  #overlay .closeLPModal{top:10px !important;right:12px !important;font-size:27px !important}
+  #overlay img{max-width:100% !important;height:auto !important}
+}
+
+/* hidden native GHL button used only to open the popup */
+.ghl-popup-trigger{position:absolute !important;left:-9999px !important;opacity:0 !important;pointer-events:none}
