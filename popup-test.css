@@ -177,6 +177,11 @@
   letter-spacing:0 !important;padding:18px 20px !important;text-align:center !important;
 }
 
+/* --- Chrome Translate -----------------------------------------------------
+   Translate wraps every text run in nested <font> tags, and a GHL rule paints
+   those black inside the answer cards. Force inheritance. --- */
+#overlay font, #overlay font font, #overlay label font{color:inherit !important}
+
 /* --- text fields (lifted off pure black so they read as inputs) -------- */
 #overlay .form-control, #overlay .text-area-element, #overlay input[type=text],
 #overlay input[type=email], #overlay input[type=tel], #overlay textarea, #overlay select{
