@@ -116,7 +116,9 @@
   .hero-h1.front{z-index:3;opacity:.32}
   .hero-h1.front .disp{color:transparent}
   .angelo{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:66%;z-index:2}
-  .angelo img{height:100%;width:auto}
+  /* max-width:none - the absolute 50%-offset container caps the image at
+     half the viewport on phones, which squeezed the cutout thinner */
+  .angelo img{height:100%;width:auto;max-width:none}
   .hero-fade{position:absolute;left:0;right:0;bottom:0;height:210px;z-index:3;
     background:linear-gradient(180deg,transparent,rgba(11,10,8,.85) 68%,var(--black))}
   .hero .chip{z-index:4}
